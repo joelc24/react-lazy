@@ -1,36 +1,43 @@
 import styles from '../styles/styles.module.css'
-import noImage from '../assets/no-image.jpg'
-import { useState } from 'react'
 
-export const ProductCard = () => {
+import { useProduct } from '../hooks/useProduct'
+import { createContext } from 'react'
+import { ProductContextProps, ProductCardProps } from '../interfaces/interfaces'
+import { ProductImage } from './ProductImage'
+import { ProductTitle } from './ProductTitle'
+import { ProductButtons } from './ProductButtons'
 
-    const [counter, setCounter] = useState(0)
 
-    const increaseBy = ( value : number) : void => {
-        setCounter((prev) => Math.max( prev + value, 0 ))
-    }
+export const ProductContext = createContext({} as ProductContextProps)
+const { Provider } = ProductContext
 
+
+export const ProductCard = ({ children, product } : ProductCardProps) => {
+
+    const { counter, increaseBy } = useProduct()
+    
   return (
+    <Provider value={{
+        counter,
+        increaseBy,
+        product
+    }}>
+        
     <div className={ styles.productCard }>
-        <img className={ styles.productImg } src="./coffee-mug.png" alt="coffee mug" />
-        {/* <img className={ styles.productImg } src={ noImage } alt="coffee mug" /> */}
 
-        <span className={ styles.productDescription }>Coffee Mug</span>
+        { children }
 
-        <div className={ styles.buttonsContainer }>
-            <button
-                className={ styles.buttonMinus }
-                onClick={ ()=> increaseBy( -1 ) }
-            >
-                -
-            </button>
-            <div className={ styles.countLabel } >{ counter }</div>
+        {/* <ProductImage img={ product.img } />
 
-            <button
-                className={ styles.buttonAdd }
-                onClick={ ()=> increaseBy(1) }
-            > + </button>
-        </div>
+        <ProductTitle title={ product.title } />
+
+        <ProductButtons increaseBy={increaseBy} counter={counter} /> */}
     </div>
+    </Provider>
   )
 }
+
+
+ProductCard.Title = ProductTitle
+ProductCard.Image = ProductImage
+ProductCard.Buttons = ProductButtons
