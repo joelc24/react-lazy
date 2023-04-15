@@ -15,6 +15,8 @@ const FormikBasicPage = lazy(() => import('../03-forms/pages/FormikBasicPages'))
 const FormikYupPage = lazy(()=> import('../03-forms/pages/FormikYupPages'))
 const FormikComponntsPage = lazy(()=> import('../03-forms/pages/FormikComponents'))
 const FormikAbstractionPage = lazy(()=> import('../03-forms/pages/FormikAbstraction'))
+const FormikRegisterPage = lazy(()=> import('../03-forms/pages/RegisterFormikPage'))
+const DynamicFormPage = lazy(() => import('../03-forms/pages/DynamicForm'))
 
 export const routes : Route[] = [
     {
@@ -46,5 +48,17 @@ export const routes : Route[] = [
         path: '/formik-abstraction',
         Component: FormikAbstractionPage,
         name: 'Formik Abstraction'
+    },
+    {
+        to: '/register-formik',
+        path: '/register-formik',
+        Component: FormikRegisterPage,
+        name: 'Formik Register'
+    },
+    {
+        to: '/dynamic-form',
+        path: '/dynamic-form',
+        Component: DynamicFormPage,
+        name: 'Dynamic Form'
     }
 ]
